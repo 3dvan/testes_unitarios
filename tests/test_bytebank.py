@@ -1,4 +1,5 @@
 from codigo.bytebank import Funcionario
+import pytest
 
 
 class TestClass:
@@ -23,12 +24,32 @@ class TestClass:
         assert resultado == esperado
 
     def test_quando_decrescimo_salario_recebe_100000_deve_retornar_90000(self):
-        salario: 100000 #given
-        entrada_nome = 'João Yamato'
-        esperado: 90000
+        entrada_salario = 100000  # given
+        entrada_nome = 'Paulo Bragança'
+        esperado = 90000
 
-        funcionario_teste = Funcionario('Teste', '11/08/1998', salario)
-        funcionario_teste.decrescimo_salario()   #when
-        resultado = funcionario_teste.salario
+        funconario_teste = Funcionario(entrada_nome, '11/11/2000', entrada_salario)
+        funconario_teste.decrescimo_salario()  # when
+        resultado = funconario_teste.salario
 
-        assert resultado == esperado
+        assert resultado == esperado  # then
+
+    def test_quando_calcular_bonus_recebe_1000_deve_retornar_100(self):
+        entrada_salario = 1000  # given
+        entrada_nome = 'Ana'
+        esperado = 100
+
+        funconario_teste = Funcionario(entrada_nome, '11/02/1998', entrada_salario)
+        resultado = funconario_teste.calcular_bonus() #when
+
+        assert resultado == esperado  # then
+
+    def test_quando_calcular_bonus_recebe_1000000_deve_retornar_exception(self):
+        with pytest.raises(Exception):
+            entrada_salario = 1000000  # given
+
+            funconario_teste = Funcionario('teste', '11/02/1998', entrada_salario)
+            resultado = funconario_teste.calcular_bonus()  # when
+
+            assert resultado
+
